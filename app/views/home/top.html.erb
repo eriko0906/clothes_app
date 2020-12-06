@@ -1,0 +1,27 @@
+<h1>Clothes</h1>
+<p>いつでもどこでものぞけるクローゼット</p>
+<br>
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+<br>
+<% if user = User.find_by(id: session[:id]) %>
+  現在ログインしているユーザ：<%= user.user_id %>
+  <% if user.image.attached? %>
+    <%= image_tag user.image,size: '50x50' %>
+  <% else %>
+    <img src="/profile/default.png">
+  <% end %>
+
+  <br>
+  <%= link_to("ログアウト","logout",{method: :post}) %>
+  <br>
+  <%= link_to("退会（アカウント削除）","/users/#{@current_user.id}/delete",{method: :post}) %>
+<% else %>
+  だれもログインしていません
+<% end %>
+<br>
+<br>
+<%= link_to("ユーザ一覧ページ","/users/index") %>
+<%= link_to("ユーザ新規登録","/users/signup") %>
+<%= link_to("ログインページ","/login") %>

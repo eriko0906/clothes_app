@@ -1,0 +1,50 @@
+<h1>ユーザ一覧</h1>
+
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+
+<table border="1">
+  <tr>
+    <th>image</th>
+    <th>id</th>
+    <th>user_id</th>
+    <th>nickname</th>
+    <th>email</th>
+    <th>pw</th>
+    <th>詳細</th>
+    <th>編集</th>
+    <th>退会</th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <% if user.image.attached? %>
+      <td><%= image_tag user.image,size: '50x50' %></td>
+    <% else %>
+      <td><img src="/profile/default.png"></td>
+    <% end %>
+    <td><%=user.id%></td>
+    <td><%=user.user_id%></td>
+    <td><%=user.nickname%></td>
+    <td><%=user.email%></td>
+    <td><%=user.pw%></td>
+    <td>
+      <%=link_to("/users/show/#{user.id}") do %>
+      <input type="submit" value="詳細">
+      <% end %>
+    </td>
+    <td>
+      <%=link_to("/users/#{user.id}/edit") do %>
+      <input type="submit" value="編集">
+      <% end %>
+    </td>
+    <td>
+      <%=link_to("/users/#{user.id}/delete",{method: :post}) do %>
+      <input type="submit" value="退会">
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<%= link_to("HOME","/") %>

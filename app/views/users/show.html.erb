@@ -1,0 +1,14 @@
+<h1>ユーザ詳細ページ</h1>
+
+<% if @user.image==nil %>
+  <p><img src="/profile/default.png"></p>
+<% else %>
+  <p><%= image_tag @user.image %>></p>
+<% end %>
+<p>id : <%=@user.id%></p>
+<p>user_id : <%=@user.user_id%></p>
+<p>nickname : <%=@user.nickname%></p>
+<p>email : <%=@user.email%></p>
+<p>pw : <%=@user.pw%></p>
+
+<%= link_to("HOME","/") %>

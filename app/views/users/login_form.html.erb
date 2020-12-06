@@ -1,0 +1,28 @@
+<h1>ログインページ</h1>
+
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_with(model: @user,url: {controller: 'users', action: 'login' },local: true) do |form|%>
+  <div class="form">
+    <div class="form-body">
+      <p>email</p>
+      <%= form.email_field :email,value: @email%>
+      <p>pw</p>
+      <%= form.password_field :pw,value: @pw%>
+      <br>
+      <%= form.submit "ログイン"%>
+    </div>
+  </div>
+<% end %>
+<br>
+<%= link_to("HOME","/") %>

@@ -1,0 +1,40 @@
+<h1>ユーザ情報編集ページ</h1>
+
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+<br>
+<% if @user.image.attached? %>
+  <%= image_tag @user.image,size: '50x50' %>
+<% else %>
+  <img src="/profile/default.png">
+<% end %>
+<p>user_id : <%=@user.user_id%></p>
+
+
+<%= form_with(model: @user,url: {controller: 'users', action: 'update' },multipart: true,local: true) do |form|%>
+  <div class="form">
+    <div class="form-body">
+      <p>nickname</p>
+      <%= form.text_field :nickname,value: @user.nickname%>
+      <p>email</p>
+      <%= form.email_field :email,value: @user.email%>
+      <p>pw</p>
+      <%= form.password_field :pw,value: @user.pw%>
+      <p>profile画像</p>
+      <%= form.file_field :image,value: @user.image%>
+      <br>
+      <%= form.submit "更新"%>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to("HOME","/") %>
